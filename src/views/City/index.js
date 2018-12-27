@@ -1,7 +1,29 @@
 import React, { Component } from "react";
 import './index.less';
 
+import store from '@/store';
+
+import { setCity } from '@/store/actionsType';
+
 class City extends Component {
+  constructor () {
+    super ()
+    this.state = {
+      curCity : store.getState().curCity
+    }
+
+    // 监听仓库状态更新情况
+    store.subscribe(() =>  {
+      console.log('仓库状态更新了')
+
+      // 同步本组件状态
+      this.setState({
+        curCity: store.getState().curCity
+      })
+
+    })
+  }
+
   render() {
     return (
       <div className="city-lits-box">
@@ -9,7 +31,8 @@ class City extends Component {
           <div className="close">
             <i className="iconfont">&#xe617;</i>
           </div>
-          <div className="title">当前城市 - 深圳</div>
+          <div className="title">当前城市 - {this.state.curCity}</div>
+          <button onClick={this.changeCity.bind(this,'深圳')}>更改成深圳</button>
         </div>
         <div className="search-city">
           <div className="search-input">
@@ -59,6 +82,14 @@ class City extends Component {
       </div>
     );
   }
+
+  changeCity (cityName) {
+    store.dispatch({
+      type: setCity,
+      data: cityName
+    })
+  }
+
 }
 
 export default City;
