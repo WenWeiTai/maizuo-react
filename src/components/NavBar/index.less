@@ -1,0 +1,99 @@
+.footer {
+  font-size: 12px;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  // border-top: 1px solid #eee;
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+  &::before {
+    // 手机1像素处理方法
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ededed;
+    transform: scaleY(0.5);
+  }
+  li {
+    flex: 1;
+    text-align: center;
+    height: 49px;
+
+    a {
+      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      .img {
+        display: block;
+        width: 21px;
+        height: 21px;
+        margin-top: 6px;
+        margin-bottom: 2px;
+        background-size: 100%;
+      }
+
+    }
+
+    &.films {
+      .img {
+        background-image: url('./image/dy.png');
+      }
+      a {
+
+        &.active .img {
+          background-image: url('./image/dy1.png');
+        }
+      }
+    }
+
+    &.cinema {
+      .img {
+        background-image: url('./image/dyy.png');
+      }
+      a {
+
+        &.active .img {
+          background-image: url('./image/dyy1.png');
+        }
+      }
+    }
+
+    &.group {
+      .img {
+        background-image: url('./image/tg.png');
+      }
+      a {
+
+        &.active .img {
+          background-image: url('./image/tg1.png');
+        }
+      }
+    }
+
+    &.center {
+      .img {
+        background-image: url('./image/wd.png');
+      }
+
+      a {
+
+        &.active .img {
+          background-image: url('./image/wd1.png');
+        }
+      }
+    }
+
+    // 点击高亮
+    &.active {
+      color: #ff5f16;
+    }
+  }
+}
