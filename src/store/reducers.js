@@ -2,7 +2,7 @@ import { setCity } from './actionsType';
 
 // 定义初始数据
 let defaultState = {
-  curCity: '北京'
+  curCity: '深圳'
 }
 
 /**
