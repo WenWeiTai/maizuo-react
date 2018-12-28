@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './index.less';
-
-// 引入仓库数据
 import store from '@/store';
 
 class Orientation extends Component {
   constructor () {
-    super ()
+    super()
 
     this.state = {
-      curCity: store.getState().curCity
+      curCity: store.getState().city.curCity
     }
-    console.log(store)
-    console.log(store.getState().curCity) // 拿到仓库城市状态
+
+    store.subscribe(() => {
+      console.log('主页定位——仓库状态有更新')
+      this.setState({
+        curCity: store.getState().city.curCity
+      })
+    })
   }
   render() {
     return (
