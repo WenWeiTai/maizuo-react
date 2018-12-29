@@ -11,13 +11,18 @@ class Orientation extends Component {
       curCity: store.getState().city.curCity
     }
 
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       console.log('主页定位——仓库状态有更新')
       this.setState({
         curCity: store.getState().city.curCity
       })
     })
   }
+
+  componentWillUnmount () {
+    this.unsubscribe()
+  }
+
   render() {
     return (
       <div className="city-fixed">
