@@ -39,7 +39,9 @@ class Group extends Component {
   // 添加
   addGroupList() {
     if (!this.state.value) {
-      Toast.info('请输入代办事件', 2);
+      Toast.info('请输入代办事件', 2, ()=>{
+        this.refs.myInput.focus()
+      });
       return
     }
     store.dispatch({
@@ -49,6 +51,14 @@ class Group extends Component {
 
     this.setState({
       value: ''
+    })
+  }
+
+  // 删除
+  deleteGroupList(index) {
+    store.dispatch({
+      type: 'DEL_LIST',
+      name: index
     })
   }
 
@@ -62,6 +72,7 @@ class Group extends Component {
               placeholder='请输入代办事件'
               value={this.state.value}
               onChange={this.onChange}
+              ref="myInput"
             >
             </InputItem>
           </Flex.Item>
@@ -76,7 +87,16 @@ class Group extends Component {
         <List>
           { this.state.listArr.map((item, index) => {
             return (
-              <Item extra={<Icon type='cross' color='#f00'></Icon>}>{ item }</Item>
+              <Item
+              key={ index }
+              extra={
+                <Icon
+                  type='cross'
+                  color='#f00'
+                  onClick={ this.deleteGroupList.bind(this, index) }>
+                </Icon>}>
+                { item }
+              </Item>
             )
           }) }
         </List>
