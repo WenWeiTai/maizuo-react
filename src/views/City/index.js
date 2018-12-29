@@ -14,7 +14,7 @@ class City extends Component {
     }
 
     // 监听仓库数据更新，本组件状态同步
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       console.log('城市列表头——仓库状态有更新')
       this.setState({
         curCity: store.getState().city.curCity
@@ -22,6 +22,11 @@ class City extends Component {
     })
 
   }
+
+  componentWillUnmount () {
+    this.unsubscribe()
+  }
+
   render() {
     return (
       <div className="city-lits-box">
