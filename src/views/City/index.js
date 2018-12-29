@@ -1,39 +1,37 @@
 import React, { Component } from "react";
 import './index.less';
 
-import store from '@/store';
+import CityHeader from '@/components/CityHeader';
 
-import { setCity } from '@/store/actionsType';
+import store from '@/store';
 
 class City extends Component {
   constructor () {
     super ()
+
     this.state = {
-      curCity : store.getState().curCity
+      curCity: store.getState().city.curCity
     }
 
-    // 监听仓库状态更新情况
-    store.subscribe(() =>  {
-      console.log('仓库状态更新了')
-
-      // 同步本组件状态
+    // 监听仓库数据更新，本组件状态同步
+    this.unsubscribe = store.subscribe(() => {
+      console.log('城市列表头——仓库状态有更新')
       this.setState({
-        curCity: store.getState().curCity
+        curCity: store.getState().city.curCity
       })
-
     })
+
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe()
   }
 
   render() {
     return (
       <div className="city-lits-box">
-        <div className="header">
-          <div className="close">
-            <i className="iconfont">&#xe617;</i>
-          </div>
-          <div className="title">当前城市 - {this.state.curCity}</div>
-          <button onClick={this.changeCity.bind(this,'深圳')}>更改成深圳</button>
-        </div>
+      {/* 将仓库当前的城市传递给城市列表头组件 */}
+        <CityHeader curCity={ this.state.curCity }></CityHeader>
         <div className="search-city">
           <div className="search-input">
             <i className="iconfont">&#xe64d;</i>
@@ -82,14 +80,6 @@ class City extends Component {
       </div>
     );
   }
-
-  changeCity (cityName) {
-    store.dispatch({
-      type: setCity,
-      data: cityName
-    })
-  }
-
 }
 
 export default City;

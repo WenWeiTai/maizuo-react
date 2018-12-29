@@ -1,8 +1,11 @@
+import { createStore, combineReducers } from 'redux';
 
-import { createStore } from 'redux';
+import city from './redusers/CityReduser';
+import groupList from './redusers/GroupReduser';
 
-import reducers from './reducers';
-
-let store = createStore(reducers);
+const store = createStore(combineReducers({
+  city,
+  groupList
+}))
 
 export default store;
